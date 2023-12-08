@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://bq5eod1xymfy2"]
+
+[ext_resource type="PackedScene" uid="uid://brki1073l5dtk" path="res://Scenes/player.tscn" id="1_e4ww5"]
+[ext_resource type="PackedScene" uid="uid://hcvq82qcvcle" path="res://Scenes/ball.tscn" id="2_a0opv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u1iue"]
+size = Vector2(14, 555)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sfdx3"]
+size = Vector2(961, 20)
+
+[node name="Arena" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_e4ww5")]
+position = Vector2(464, 483)
+
+[node name="Ball" parent="." instance=ExtResource("2_a0opv")]
+position = Vector2(465, 458)
+initialSpeed = 200
+
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
+position = Vector2(-7, 266)
+shape = SubResource("RectangleShape2D_u1iue")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
+position = Vector2(968, 266)
+shape = SubResource("RectangleShape2D_u1iue")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls"]
+position = Vector2(480.5, -10)
+shape = SubResource("RectangleShape2D_sfdx3")
