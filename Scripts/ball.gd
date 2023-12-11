@@ -12,10 +12,17 @@ func initialize_ball() -> void:
     velocity = Vector2(randomDirectionX, -1).normalized()
     velocity *= initialSpeed
 
+func react_collision(collision: KinematicCollision2D) -> void:
+    var collider: Node = collision.get_collider()
+
+    if (collider.is_in_group("brick")):
+        collider.queue_free.call_deferred()
+
 func _ready() -> void:
     initialize_ball()
 
-func _physics_process(delta) -> void:
+func _physics_process(delta: float) -> void:
     var collision: KinematicCollision2D = move_and_collide(velocity * delta)
     if (collision):
         bounce_ball(collision)
+        react_collision(collision)

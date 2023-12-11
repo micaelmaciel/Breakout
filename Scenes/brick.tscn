@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dh6uu3pao8xsa"]
+
+[ext_resource type="Texture2D" uid="uid://c35nbcbea5prb" path="res://Assets/Sprites/paddle.png" id="1_fcj1n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ofu4k"]
+size = Vector2(87, 18)
+
+[node name="Brick" type="StaticBody2D" groups=["brick"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0.534396, -0.65703)
+rotation = 1.5708
+scale = Vector2(1.38446, 2.72044)
+texture = ExtResource("1_fcj1n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_ofu4k")

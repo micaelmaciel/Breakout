@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bq5eod1xymfy2"]
+[gd_scene load_steps=6 format=3 uid="uid://bq5eod1xymfy2"]
 
 [ext_resource type="PackedScene" uid="uid://brki1073l5dtk" path="res://Scenes/player.tscn" id="1_e4ww5"]
 [ext_resource type="PackedScene" uid="uid://hcvq82qcvcle" path="res://Scenes/ball.tscn" id="2_a0opv"]
+[ext_resource type="PackedScene" uid="uid://dh6uu3pao8xsa" path="res://Scenes/brick.tscn" id="3_k4cya"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u1iue"]
 size = Vector2(14, 555)
@@ -33,3 +34,6 @@ shape = SubResource("RectangleShape2D_u1iue")
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls"]
 position = Vector2(480.5, -10)
 shape = SubResource("RectangleShape2D_sfdx3")
+
+[node name="Brick" parent="." instance=ExtResource("3_k4cya")]
+position = Vector2(457, 347)
