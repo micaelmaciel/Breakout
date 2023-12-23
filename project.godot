@@ -15,6 +15,10 @@ run/main_scene="res://Scenes/arena.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GlobalProperties="*res://Scripts/GlobalProperties.gd"
+
 [debug]
 
 gdscript/warnings/untyped_declaration=1
