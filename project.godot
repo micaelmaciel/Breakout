@@ -45,7 +45,7 @@ p1Left={
 
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Ball"
-2d_physics/layer_3="Rectangles"
+2d_physics/layer_3="Bricks"
 2d_physics/layer_4="Walls"
 
 [rendering]
