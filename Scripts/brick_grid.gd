@@ -18,9 +18,9 @@ func _ready() -> void:
 	for column: int in range(columns):
 		for row: int in range(rows):
 			var instanceBrick: StaticBody2D = packedBrick.instantiate()
+			add_child(instanceBrick)
 			instanceBrick.global_position = Vector2(currentX, currentY)
 			instanceBrick.modulate = Color(randf(), randf(), randf())
-			add_child(instanceBrick)
 			currentY += vSeparation + brickVSize
 		currentX += hSeparation + brickHSize
-		currentY = position.y
+		currentY = global_position.y

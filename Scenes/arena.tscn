@@ -1,8 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://bq5eod1xymfy2"]
+[gd_scene load_steps=10 format=3 uid="uid://bq5eod1xymfy2"]
 
+[ext_resource type="Script" path="res://Scripts/arena.gd" id="1_b5b0c"]
 [ext_resource type="PackedScene" uid="uid://brki1073l5dtk" path="res://Scenes/player.tscn" id="1_e4ww5"]
 [ext_resource type="PackedScene" uid="uid://hcvq82qcvcle" path="res://Scenes/ball.tscn" id="2_a0opv"]
 [ext_resource type="PackedScene" uid="uid://coec42iultc4x" path="res://Scenes/brick_grid.tscn" id="3_leoq5"]
+[ext_resource type="PackedScene" uid="uid://tiikqfhcw3lc" path="res://Scenes/current_score.tscn" id="4_kmds8"]
+[ext_resource type="Script" path="res://Scripts/HP.gd" id="6_6ekvl"]
+[ext_resource type="PackedScene" uid="uid://bbnugax7yb4xo" path="res://Scenes/game_over.tscn" id="6_62ljb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u1iue"]
 size = Vector2(14, 555)
@@ -11,6 +15,11 @@ size = Vector2(14, 555)
 size = Vector2(961, 20)
 
 [node name="Arena" type="Node2D"]
+script = ExtResource("1_b5b0c")
+
+[node name="BrickGrid" parent="." instance=ExtResource("3_leoq5")]
+position = Vector2(56, 84)
+rows = 6
 
 [node name="Player" parent="." instance=ExtResource("1_e4ww5")]
 position = Vector2(464, 483)
@@ -23,18 +32,48 @@ initialSpeed = 200
 [node name="Walls" type="StaticBody2D" parent="."]
 collision_layer = 8
 collision_mask = 0
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
 position = Vector2(-7, 266)
 shape = SubResource("RectangleShape2D_u1iue")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
 position = Vector2(968, 266)
 shape = SubResource("RectangleShape2D_u1iue")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls"]
 position = Vector2(480.5, -10)
 shape = SubResource("RectangleShape2D_sfdx3")
+metadata/_edit_lock_ = true
 
-[node name="BrickGrid" parent="." instance=ExtResource("3_leoq5")]
-position = Vector2(46, 17)
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CurrentScore" parent="CanvasLayer" instance=ExtResource("4_kmds8")]
+offset_left = 23.0
+offset_top = 6.0
+offset_right = 160.0
+offset_bottom = 67.0
+theme_override_font_sizes/font_size = 36
+text = "Score: 0"
+vertical_alignment = 1
+
+[node name="HP" type="Label" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -173.0
+offset_top = 5.0
+offset_right = -17.0
+offset_bottom = 66.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 36
+text = "Health: 3"
+vertical_alignment = 1
+script = ExtResource("6_6ekvl")
+
+[node name="GameOverScreen" parent="CanvasLayer" instance=ExtResource("6_62ljb")]
+unique_name_in_owner = true
+visible = false

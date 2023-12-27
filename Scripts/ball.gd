@@ -54,7 +54,11 @@ func _physics_process(delta: float) -> void:
 		react_collision(collision)
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
-	GlobalProperties.highestScore = max(GlobalProperties.highestScore, GlobalProperties.score)
-	GlobalProperties.score = 0
+
+	GlobalProperties.playerHealth -= 1
+	if (GlobalProperties.playerHealth <= 0):
+		GlobalProperties.emit_health_depleted()
+		return
+
 	GlobalProperties.emit_out_bounds()
 	reinitialize_ball()

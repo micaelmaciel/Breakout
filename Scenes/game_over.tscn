@@ -1,0 +1,108 @@
+[gd_scene load_steps=8 format=3 uid="uid://bbnugax7yb4xo"]
+
+[ext_resource type="Script" path="res://Scripts/game_over.gd" id="1_yet0j"]
+[ext_resource type="Script" path="res://Scripts/Restart.gd" id="2_t2vi2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dhr6j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b7n2x"]
+bg_color = Color(0.188235, 0.529412, 0.745098, 1)
+border_width_bottom = 9
+border_color = Color(0.0588235, 0.376471, 0.615686, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_opchr"]
+bg_color = Color(0.156863, 0.47451, 0.67451, 1)
+border_width_bottom = 9
+border_color = Color(0.0823529, 0.305882, 0.486275, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1mlrc"]
+bg_color = Color(0.156863, 0.47451, 0.67451, 1)
+border_color = Color(0.0823529, 0.305882, 0.486275, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="Theme" id="Theme_t1jr5"]
+Button/styles/hover = SubResource("StyleBoxFlat_b7n2x")
+Button/styles/normal = SubResource("StyleBoxFlat_opchr")
+Button/styles/pressed = SubResource("StyleBoxFlat_1mlrc")
+
+[node name="GameOverScreen" type="Control"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yet0j")
+
+[node name="Panel" type="Panel" parent="."]
+modulate = Color(0.211765, 0, 0, 1)
+layout_mode = 0
+offset_right = 960.0
+offset_bottom = 540.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dhr6j")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -147.0
+offset_top = 92.0
+offset_right = 147.0
+offset_bottom = 162.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[shake rate=20.0 level=5 connected=1]GAME OVER[/shake]"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -133.0
+offset_top = -17.5
+offset_right = 134.0
+offset_bottom = 135.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 35
+
+[node name="Score" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 36
+text = "Score: 0"
+text_direction = 1
+
+[node name="HighestScore" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 36
+text = "Highest score: 0"
+text_direction = 1
+
+[node name="Restart" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_t1jr5")
+theme_override_font_sizes/font_size = 36
+text = "Restart"
+script = ExtResource("2_t2vi2")
