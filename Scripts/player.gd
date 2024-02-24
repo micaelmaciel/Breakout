@@ -13,7 +13,7 @@ func handle_movement() -> void:
 	velocity = Vector2(direction, 0) * speed
 
 func _ready() -> void:
-	pass
+	GlobalProperties.player = self
 
 func _physics_process(_delta: float) -> void:
 	handle_movement()

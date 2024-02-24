@@ -1,4 +1,4 @@
 extends Label
 
-func _process(delta):
+func _process(_delta: float) -> void:
     text = "Health: " + str(GlobalProperties.playerHealth)

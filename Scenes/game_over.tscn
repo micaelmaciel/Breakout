@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bbnugax7yb4xo"]
+[gd_scene load_steps=9 format=3 uid="uid://bbnugax7yb4xo"]
 
 [ext_resource type="Script" path="res://Scripts/game_over.gd" id="1_yet0j"]
 [ext_resource type="Script" path="res://Scripts/Restart.gd" id="2_t2vi2"]
+[ext_resource type="AudioStream" uid="uid://0gxmr7pjde27" path="res://Assets/Sounds/button_click.wav" id="3_2wrdm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dhr6j"]
 
@@ -100,9 +101,15 @@ theme_override_font_sizes/font_size = 36
 text = "Highest score: 0"
 text_direction = 1
 
-[node name="Restart" type="Button" parent="VBoxContainer"]
+[node name="Restart" type="Button" parent="VBoxContainer" node_paths=PackedStringArray("buttonClickSound")]
 layout_mode = 2
 theme = SubResource("Theme_t1jr5")
 theme_override_font_sizes/font_size = 36
 text = "Restart"
 script = ExtResource("2_t2vi2")
+buttonClickSound = NodePath("../../ButtonClick")
+
+[node name="ButtonClick" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_2wrdm")
+volume_db = -10.165

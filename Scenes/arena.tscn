@@ -77,3 +77,16 @@ script = ExtResource("6_6ekvl")
 [node name="GameOverScreen" parent="CanvasLayer" instance=ExtResource("6_62ljb")]
 unique_name_in_owner = true
 visible = false
+
+[node name="WinScreen" parent="CanvasLayer" instance=ExtResource("6_62ljb")]
+unique_name_in_owner = true
+visible = false
+
+[node name="RichTextLabel" parent="CanvasLayer/WinScreen" index="1"]
+process_mode = 2
+offset_top = 93.0
+offset_bottom = 163.0
+text = "[wave amp=50.0 freq=8.0 connected=1][center]W O N[/center][/wave]"
+
+[editable path="CanvasLayer/GameOverScreen"]
+[editable path="CanvasLayer/WinScreen"]

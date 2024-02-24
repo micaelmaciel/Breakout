@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://hcvq82qcvcle"]
+[gd_scene load_steps=7 format=3 uid="uid://hcvq82qcvcle"]
 
 [ext_resource type="Script" path="res://Scripts/ball.gd" id="1_hn6in"]
 [ext_resource type="Texture2D" uid="uid://bwkld5lnbfm3i" path="res://Assets/Sprites/ball.png" id="1_i7mv4"]
+[ext_resource type="AudioStream" uid="uid://d0nvbsls5mpcw" path="res://Assets/Sounds/paddle_hit.wav" id="3_j6wrt"]
+[ext_resource type="AudioStream" uid="uid://d1s6fjfqx7pm4" path="res://Assets/Sounds/wall_hit.wav" id="4_yov4c"]
+[ext_resource type="AudioStream" uid="uid://ccxbvhbgjhwkm" path="res://Assets/Sounds/brick_hit.wav" id="5_q7eb1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1kgto"]
 radius = 12.0
@@ -20,5 +23,17 @@ position = Vector2(0, -1)
 shape = SubResource("CapsuleShape2D_1kgto")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="PaddleHit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_j6wrt")
+volume_db = -13.2
+
+[node name="WallHit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_yov4c")
+volume_db = 1.256
+
+[node name="BrickHit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_q7eb1")
+volume_db = 2.685
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

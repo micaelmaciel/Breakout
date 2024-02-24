@@ -1,21 +1,25 @@
 extends CharacterBody2D
 
 @export var initialSpeed: int = 100
+@export var speedGain: int = 20
+
 var score: int = GlobalProperties.score
 var highestScore: int = GlobalProperties.highestScore
 
+var ball_state: String = "initial"
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.is_action("shoot") and ball_state == "initial":
+		ball_state = "launched"
+		velocity = Vector2(0, -1) * initialSpeed
 
 #region ball starting
 func initialize_ball() -> void:
-	randomize()
-	var randomSide: int = [1, -1].pick_random()
-	var randomDirectionX: int = randi_range(1, 9) * randomSide
-	velocity = Vector2(randomDirectionX, -1).normalized()
-	velocity *= initialSpeed
+	ball_state = "initial"
 
 func reinitialize_ball() -> void:
 	set_collision_mask_value(1, true)
-	position = Vector2(463, 363)
+	position.y = 458
 	initialize_ball()
 #endregion
 
@@ -28,12 +32,15 @@ func react_collision(collision: KinematicCollision2D) -> void:
 
 	if (collider.is_in_group("brick")):
 		collider.queue_free.call_deferred()
-		velocity.y *= 1.2
+		velocity.y += speedGain * sign(velocity.y)
 		GlobalProperties.score += 1
 		bounce_ball(collision)
+		$BrickHit.play(1.94)
+
 	elif (collider is Player):
+		velocity.x += 0.1
 		var normal_x: float = collision.get_normal().x
-		if (abs(abs(normal_x) - 1) < 0.0001):
+		if (normal_x == 1 or sign(collision.get_normal().y) == 1):
 			set_collision_mask_value(1, false)
 		else:
 			var normalizedDifference: float = (position - collider.position).normalized().x
@@ -41,17 +48,28 @@ func react_collision(collision: KinematicCollision2D) -> void:
 			velocity.x = normalizedDifference * speed
 			velocity = velocity.normalized() * speed
 			bounce_ball(collision)
+			velocity.y = abs(velocity.y) * -1
+			$PaddleHit.play(0.53)
+
 	else:
 		bounce_ball(collision)
+		$WallHit.play(0.12)
 #endregion
 
 func _ready() -> void:
 	initialize_ball()
 
 func _physics_process(delta: float) -> void:
+	if ball_state == "initial":
+		position.x = GlobalProperties.player.position.x
+		return
+
 	var collision: KinematicCollision2D = move_and_collide(velocity * delta)
 	if (collision):
 		react_collision(collision)
+	
+	if (get_tree().get_first_node_in_group("brick") == null):
+		GlobalProperties.emit_game_won()
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 
@@ -59,6 +77,5 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	if (GlobalProperties.playerHealth <= 0):
 		GlobalProperties.emit_health_depleted()
 		return
-
-	GlobalProperties.emit_out_bounds()
+	
 	reinitialize_ball()
