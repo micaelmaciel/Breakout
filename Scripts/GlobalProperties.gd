@@ -6,8 +6,6 @@ signal game_won
 var score: int = 0
 var highestScore: int = 0
 
-var player: CharacterBody2D
-
 
 var playerHealth: int = 3
 

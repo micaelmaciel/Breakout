@@ -6,11 +6,12 @@ extends Node2D
 @export var hSeparation: int = 24
 @export var vSeparation: int = 25
 
+var packedBrick: PackedScene = preload("res://Scenes/brick.tscn")
+
 #TODO: use a better way to get the sizes
 var brickVSize: int = 18
-var brickHSize: int = 87
+var brickHSize: int = 86
 
-var packedBrick: PackedScene = preload("res://Scenes/brick.tscn")
 
 func _ready() -> void:
 	var currentX: float = position.x

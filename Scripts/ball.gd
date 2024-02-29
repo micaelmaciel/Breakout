@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var initialSpeed: int = 100
 @export var speedGain: int = 20
+@export var player: CharacterBody2D
 
 var score: int = GlobalProperties.score
 var highestScore: int = GlobalProperties.highestScore
@@ -9,7 +10,7 @@ var highestScore: int = GlobalProperties.highestScore
 var ball_state: String = "initial"
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventKey and event.is_action("shoot") and ball_state == "initial":
+	if event.is_action("shoot") and ball_state == "initial":
 		ball_state = "launched"
 		velocity = Vector2(0, -1) * initialSpeed
 
@@ -37,8 +38,8 @@ func react_collision(collision: KinematicCollision2D) -> void:
 		bounce_ball(collision)
 		$BrickHit.play(1.94)
 
-	elif (collider is Player):
-		velocity.x += 0.1
+	elif (collider is Player): #FIXBUG: ball gets stuck between paddle and wall
+		velocity.x += 0.1 #FIXBUG: this solution to avoid straight movement doesn't work
 		var normal_x: float = collision.get_normal().x
 		if (normal_x == 1 or sign(collision.get_normal().y) == 1):
 			set_collision_mask_value(1, false)
@@ -61,7 +62,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if ball_state == "initial":
-		position.x = GlobalProperties.player.position.x
+		position.x = player.position.x
 		return
 
 	var collision: KinematicCollision2D = move_and_collide(velocity * delta)
@@ -72,7 +73,6 @@ func _physics_process(delta: float) -> void:
 		GlobalProperties.emit_game_won()
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
-
 	GlobalProperties.playerHealth -= 1
 	if (GlobalProperties.playerHealth <= 0):
 		GlobalProperties.emit_health_depleted()
